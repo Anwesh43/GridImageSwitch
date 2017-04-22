@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -16,6 +17,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 public class GridSwitchView extends View {
     private int time = 0,maxH = 0;
+    private GestureDetector gestureDetector;
     private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Screen screen = new Screen();
     private List<GridElement> gridElements = new ArrayList<>();
@@ -26,6 +28,7 @@ public class GridSwitchView extends View {
     }
     public GridSwitchView(Context context) {
         super(context);
+        gestureDetector = new GestureDetector(context,new ScreenGestureListener());
     }
     public void onDraw(Canvas canvas) {
         int w = canvas.getWidth(),h = canvas.getHeight(),gap = w/7;
@@ -56,16 +59,32 @@ public class GridSwitchView extends View {
         animationController.animate();
     }
     public boolean onTouchEvent(MotionEvent event) {
-        float x = event.getX(),y = event.getY();
-        if(event.getAction() == MotionEvent.ACTION_DOWN) {
-            animationController.handleTap(x,y);
-        }
-        return true;
+        return gestureDetector.onTouchEvent(event);
     }
     private class Screen {
         private float y=0;
         public void updateY(float changeY) {
             y+=changeY;
+        }
+    }
+    private class ScreenGestureListener extends GestureDetector.SimpleOnGestureListener{
+        public boolean onDown(MotionEvent event) {
+            return true;
+        }
+        public boolean onSingleTapUp(MotionEvent event) {
+            float x = event.getX(),y = event.getY();
+            if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                animationController.handleTap(x,y);
+            }
+            return true;
+        }
+        public boolean onScroll(MotionEvent e1,MotionEvent e2,float velx,float vely) {
+            float updatedY = screen.y+vely;
+            if(updatedY <= maxH && updatedY >= 0) {
+                screen.y = updatedY;
+            }
+            postInvalidate();
+            return true;
         }
     }
 }
