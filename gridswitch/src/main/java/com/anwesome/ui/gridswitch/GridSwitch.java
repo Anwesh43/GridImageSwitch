@@ -1,9 +1,11 @@
 package com.anwesome.ui.gridswitch;
 
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.WindowManager;
 
 /**
  * Created by anweshmishra on 22/04/17.
@@ -23,6 +25,8 @@ public class GridSwitch {
     }
     public void show() {
         if(!isShown) {
+            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
             if(activity instanceof AppCompatActivity) {
                 ActionBar actionBar = ((AppCompatActivity)activity).getSupportActionBar();
                 if(actionBar!=null) {
