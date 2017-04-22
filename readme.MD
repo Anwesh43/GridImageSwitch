@@ -36,3 +36,8 @@
 ```
     gridSwitch.show();
 ```
+
+
+#### Demo
+
+<img src="https://github.com/Anwesh43/GridImageSwitch/blob/master/screencast/gridswitchview.gif" alt="demo of grid image switch" width="300px" height="500px">
