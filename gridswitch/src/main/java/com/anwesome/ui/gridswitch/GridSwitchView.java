@@ -22,8 +22,8 @@ public class GridSwitchView extends View {
     private Screen screen = new Screen();
     private List<GridElement> gridElements = new ArrayList<>();
     private AnimationController animationController;
-    public void addGridElement(Bitmap bitmap) {
-        GridElement gridElement = new GridElement(bitmap);
+    public void addGridElement(Bitmap bitmap,OnSelectionListener onSelectionListener) {
+        GridElement gridElement = new GridElement(bitmap,onSelectionListener);
         this.gridElements.add(gridElement);
     }
     public GridSwitchView(Context context) {

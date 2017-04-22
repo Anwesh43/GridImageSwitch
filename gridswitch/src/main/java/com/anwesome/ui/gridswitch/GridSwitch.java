@@ -18,9 +18,9 @@ public class GridSwitch {
         this.activity = activity;
         this.gridSwitchView = new GridSwitchView(activity);
     }
-    public void addGridElement(Bitmap bitmap) {
+    public void addGridElement(Bitmap bitmap,OnSelectionListener onSelectionListener) {
         if(!isShown) {
-            gridSwitchView.addGridElement(bitmap);
+            gridSwitchView.addGridElement(bitmap,onSelectionListener);
         }
     }
     public void show() {

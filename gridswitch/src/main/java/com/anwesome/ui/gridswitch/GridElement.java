@@ -12,8 +12,10 @@ public class GridElement {
     private Bitmap bitmap;
     private MovementController movementController = new MovementController();
     private float x=0,y=0,dir = 0;
-    public GridElement(Bitmap bitmap) {
+    private OnSelectionListener onSelectionListener;
+    public GridElement(Bitmap bitmap,OnSelectionListener onSelectionListener) {
         this.bitmap = bitmap;
+        this.onSelectionListener = onSelectionListener;
     }
     public void setDimension(float x,float y,int w) {
         this.x = x;
@@ -31,6 +33,12 @@ public class GridElement {
         boolean condition = movementController.stopped();
         if(movementController.getScale() <= 0) {
             bitmap = BitmapColorUtils.changeBitmapColor(bitmap,Constants.FORE_COLOR);
+            if(onSelectionListener!=null) {
+                onSelectionListener.onUnSelect();
+            }
+        }
+        else if(onSelectionListener!=null){
+            onSelectionListener.onSelect();
         }
         return condition;
     }
