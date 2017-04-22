@@ -41,9 +41,9 @@ public class AnimationController {
     public void handleTap(float x,float y) {
         for(GridElement gridElement:gridElements) {
             if(gridElement.handleTap(x,y)) {
-                boolean isFirstTappedElement = tappedElements.size() == 0;
+                boolean isFirstTappedElement = tappedElements.size() == 0 && !isAnimated;
                 tappedElements.add(gridElement);
-                if(isFirstTappedElement) {
+                if(isFirstTappedElement ) {
                     isAnimated = true;
                     view.postInvalidate();
                 }
