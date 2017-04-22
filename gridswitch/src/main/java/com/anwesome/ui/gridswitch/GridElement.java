@@ -29,6 +29,14 @@ public class GridElement {
         boolean condition = movementController.stopped();
         return condition;
     }
+    public boolean handleTap(float x,float y) {
+        int w = bitmap.getWidth(),h = bitmap.getHeight();
+        boolean condition = x>=this.x-w && x<=this.x+w && y>=this.y-h && y<=this.y+h;
+        if(condition) {
+            movementController.startUpdating();
+        }
+        return condition;
+    }
     public int hashCode() {
         return bitmap.hashCode()+(int)scale;
     }
