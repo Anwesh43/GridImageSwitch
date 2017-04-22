@@ -17,6 +17,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class GridSwitchView extends View {
     private int time = 0,maxH = 0;
     private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Screen screen = new Screen();
     private List<GridElement> gridElements = new ArrayList<>();
     private AnimationController animationController;
     public void addGridElement(Bitmap bitmap) {
@@ -45,9 +46,12 @@ public class GridSwitchView extends View {
             maxH += 3*gap/2;
         }
         canvas.drawColor(Constants.BACK_COLOR);
+        canvas.save();
+        canvas.translate(0,screen.y);
         for(GridElement gridElement:gridElements) {
             gridElement.draw(canvas,paint,gap);
         }
+        canvas.restore();
         time++;
         animationController.animate();
     }
@@ -57,5 +61,11 @@ public class GridSwitchView extends View {
             animationController.handleTap(x,y);
         }
         return true;
+    }
+    private class Screen {
+        private float y=0;
+        public void updateY(float changeY) {
+            y+=changeY;
+        }
     }
 }
