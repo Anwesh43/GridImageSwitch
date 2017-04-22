@@ -71,7 +71,7 @@ public class GridSwitchView extends View {
         }
         public boolean onSingleTapUp(MotionEvent event) {
             float x = event.getX(),y = event.getY();
-            animationController.handleTap(x,y);
+            animationController.handleTap(x,y-screen.y);
             return true;
         }
         public boolean onScroll(MotionEvent e1,MotionEvent e2,float velx,float vely) {
