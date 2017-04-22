@@ -44,6 +44,7 @@ public class GridSwitchView extends View {
             }
             maxH += 3*gap/2;
         }
+        canvas.drawColor(Constants.BACK_COLOR);
         for(GridElement gridElement:gridElements) {
             gridElement.draw(canvas,paint,gap);
         }

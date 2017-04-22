@@ -2,7 +2,6 @@ package com.anwesome.ui.gridswitch;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 
@@ -17,7 +16,7 @@ public class DrawingUtil {
         path.addCircle(0,0,size/2, Path.Direction.CCW);
         canvas.save();
         canvas.scale(scale,scale);
-        paint.setColor(Color.parseColor("#757575"));
+        paint.setColor(Constants.BACK_COLOR);
         canvas.drawPath(path,paint);
         canvas.restore();
         canvas.clipPath(path);
