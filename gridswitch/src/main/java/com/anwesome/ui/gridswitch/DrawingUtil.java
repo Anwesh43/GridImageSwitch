@@ -16,7 +16,7 @@ public class DrawingUtil {
         path.addCircle(0,0,size/2, Path.Direction.CCW);
         canvas.save();
         canvas.scale(scale,scale);
-        paint.setColor(Constants.BACK_COLOR);
+        paint.setColor(Constants.FORE_COLOR);
         canvas.drawPath(path,paint);
         canvas.restore();
         canvas.clipPath(path);

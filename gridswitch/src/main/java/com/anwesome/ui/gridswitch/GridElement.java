@@ -2,7 +2,7 @@ package com.anwesome.ui.gridswitch;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
+
 import android.graphics.Paint;
 
 /**
@@ -11,7 +11,7 @@ import android.graphics.Paint;
 public class GridElement {
     private Bitmap bitmap;
     private MovementController movementController = new MovementController();
-    private float scale = 0,x=0,y=0,dir = 0;
+    private float x=0,y=0,dir = 0;
     public GridElement(Bitmap bitmap) {
         this.bitmap = bitmap;
     }
@@ -22,25 +22,30 @@ public class GridElement {
         bitmap = BitmapColorUtils.changeBitmapColor(bitmap, Constants.FORE_COLOR);
     }
     public void draw(Canvas canvas, Paint paint,float size) {
-        DrawingUtil.draw(canvas,paint,bitmap,x,y,size,scale);
+        DrawingUtil.draw(canvas,paint,bitmap,x,y,size,movementController.getScale());
     }
     public void update() {
         movementController.move();
     }
     public boolean stopped() {
         boolean condition = movementController.stopped();
+        if(movementController.getScale() <= 0) {
+            bitmap = BitmapColorUtils.changeBitmapColor(bitmap,Constants.FORE_COLOR);
+        }
         return condition;
     }
     public boolean handleTap(float x,float y) {
         int w = bitmap.getWidth(),h = bitmap.getHeight();
         boolean condition = x>=this.x-w && x<=this.x+w && y>=this.y-h && y<=this.y+h;
         if(condition) {
-            bitmap = BitmapColorUtils.changeBitmapColor(bitmap,Constants.FORE_COLOR);
+            if(movementController.getScale() <= 0) {
+                bitmap = BitmapColorUtils.changeBitmapColor(bitmap, Constants.BACK_COLOR);
+            }
             movementController.startUpdating();
         }
         return condition;
     }
     public int hashCode() {
-        return bitmap.hashCode()+(int)scale;
+        return bitmap.hashCode()+(int)movementController.getScale();
     }
 }
