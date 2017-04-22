@@ -9,6 +9,7 @@ import android.graphics.Paint;
  */
 public class GridElement {
     private Bitmap bitmap;
+    private MovementController movementController = new MovementController();
     private float scale = 0,x=0,y=0,dir = 0;
     public GridElement(Bitmap bitmap) {
         this.bitmap = bitmap;
@@ -22,7 +23,11 @@ public class GridElement {
         DrawingUtil.draw(canvas,paint,bitmap,x,y,size,scale);
     }
     public void update() {
-
+        movementController.move();
+    }
+    public boolean stopped() {
+        boolean condition = movementController.stopped();
+        return condition;
     }
     public int hashCode() {
         return bitmap.hashCode()+(int)scale;
