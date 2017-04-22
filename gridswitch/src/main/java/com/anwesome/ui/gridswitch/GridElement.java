@@ -31,14 +31,15 @@ public class GridElement {
     }
     public boolean stopped() {
         boolean condition = movementController.stopped();
-        if(movementController.getScale() <= 0) {
-            bitmap = BitmapColorUtils.changeBitmapColor(bitmap,Constants.FORE_COLOR);
-            if(onSelectionListener!=null) {
-                onSelectionListener.onUnSelect();
+        if(condition) {
+            if (movementController.getScale() <= 0) {
+                bitmap = BitmapColorUtils.changeBitmapColor(bitmap, Constants.FORE_COLOR);
+                if (onSelectionListener != null) {
+                    onSelectionListener.onUnSelect();
+                }
+            } else if (onSelectionListener != null) {
+                onSelectionListener.onSelect();
             }
-        }
-        else if(onSelectionListener!=null){
-            onSelectionListener.onSelect();
         }
         return condition;
     }
