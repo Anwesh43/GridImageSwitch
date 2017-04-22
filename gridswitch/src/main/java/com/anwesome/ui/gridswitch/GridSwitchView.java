@@ -37,8 +37,10 @@ public class GridSwitchView extends View {
                     x = 3*gap/2;
                     y += 2*gap;
                     i = 0;
+                    maxH+=2*gap;
                 }
             }
+            maxH += 3*gap/2;
         }
         for(GridElement gridElement:gridElements) {
             gridElement.draw(canvas,paint,gap);
